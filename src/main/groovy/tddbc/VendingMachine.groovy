@@ -6,13 +6,14 @@ package tddbc
 class VendingMachine {
 
     /** 許可するお金 */
-    static final List ALLOW_MONEYS = [10, 50, 100, 500, 1000]
-
-    /** 合計金額 */
-    Integer total = 0
+    static final List ALLOW_MONEY_LIST = [10, 50, 100, 500, 1000]
 
     /** 投入されたお金 */
-    List insertedMoney = []
+    List insertedMoneyList = []
+
+    Integer getTotal() {
+        insertedMoneyList.sum() ?: 0
+    }
 
     /**
      * お金を投入します。
@@ -23,9 +24,8 @@ class VendingMachine {
      * @return 釣り銭
      */
     void insert(Integer money) {
-        if (ALLOW_MONEYS.contains(money)) {
-            total += money
-            insertedMoney << money
+        if (ALLOW_MONEY_LIST.contains(money)) {
+            insertedMoneyList << money
             return
         }
         throw new UnusableMoneyUsedException(insertedMoney: money)
@@ -39,9 +39,9 @@ class VendingMachine {
      * @return 釣り銭
      */
     def refund() {
-        def refund = total
-        total = 0
-        insertedMoney
+        def refundMoneyList = insertedMoneyList
+        insertedMoneyList = []
+        refundMoneyList
     }
 
 }
