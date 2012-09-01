@@ -23,7 +23,7 @@ class VendingMachine {
      *
      * @return 総計
      */
-    Integer getTotal() {
+    def getTotal() {
         insertedMoneyList.sum() ?: 0
     }
 
