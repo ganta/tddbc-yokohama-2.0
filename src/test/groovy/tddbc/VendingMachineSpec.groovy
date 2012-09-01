@@ -104,10 +104,13 @@ class VendingMachineSpec extends Specification {
     }
 
 
-    def "１円が投入されたらそのまま釣り銭として返す"() {
+    @Unroll
+    def "#coin円を入れると釣り銭としてそのまま返す"() {
         expect:
-        vendingMachine.insert(1) == 1
+        vendingMachine.insert(coin)
 
+        where:
+        coin << [1, 5, 2000, 5000, 10000]
     }
 
 }
