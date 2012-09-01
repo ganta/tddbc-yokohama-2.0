@@ -11,20 +11,24 @@ class VendingMachine {
     /** 合計金額 */
     Integer total = 0
 
+    /** 投入されたお金 */
+    List insertedMoney = []
+
     /**
      * お金を投入します。
      * <p>
      * 許可されないお金が投入された場合はそのまま釣り銭として返します。
      *
-     * @param coin お金
+     * @param money お金
      * @return 釣り銭
      */
-    def insert(Integer coin) {
-        if (ALLOW_MONEYS.contains(coin)) {
-            total += coin
-            return 0
+    void insert(Integer money) {
+        if (ALLOW_MONEYS.contains(money)) {
+            total += money
+            insertedMoney << money
+            return
         }
-        coin
+        throw new UnusableMoneyUsedException(insertedMoney: money)
     }
 
     /**
@@ -37,7 +41,7 @@ class VendingMachine {
     def refund() {
         def refund = total
         total = 0
-        refund
+        insertedMoney
     }
 
 }
