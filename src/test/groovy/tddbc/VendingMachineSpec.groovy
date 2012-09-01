@@ -19,7 +19,7 @@ class VendingMachineSpec extends Specification {
     @Unroll
     def "#coin円を入れて総計を取得すると#total円を取得できる"() {
         when:
-        vendingMachine.insert(coin)
+        assert vendingMachine.insert(coin) == 0
 
         then:
         vendingMachine.total == total
@@ -101,6 +101,13 @@ class VendingMachineSpec extends Specification {
 
         then:
         vendingMachine.total == 0
+    }
+
+
+    def "１円が投入されたらそのまま釣り銭として返す"() {
+        expect:
+        vendingMachine.insert(1) == 1
+
     }
 
 }
