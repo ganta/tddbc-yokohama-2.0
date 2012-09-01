@@ -110,11 +110,20 @@ class VendingMachineSpec extends Specification {
         vendingMachine.insert(money)
 
         then:
-        def e = thrown(UnusableMoneyUsedException)
+        def e = thrown(UnsupportedMoneyInsertedException)
         e.insertedMoney == money
 
         where:
         money << [1, 5, 2000, 5000, 10000]
+    }
+
+    def "ジュースの情報を取得すると120円のコーラ5本だ"() {
+        when:
+        def actual = vendingMachine.storedJuice
+        then:
+        actual.name == 'コーラ'
+        actual.price == 120
+        actual.stock == 5
     }
 
 }
