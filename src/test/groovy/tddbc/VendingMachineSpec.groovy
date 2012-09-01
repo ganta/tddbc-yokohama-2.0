@@ -92,4 +92,15 @@ class VendingMachineSpec extends Specification {
         [10, 50, 100, 500, 1000] | 1660
     }
 
+    def "10円を入れて払い戻しした後は総計が0円になる"() {
+        setup:
+        vendingMachine.insert(10)
+
+        when:
+        vendingMachine.refund()
+
+        then:
+        vendingMachine.total == 0
+    }
+
 }

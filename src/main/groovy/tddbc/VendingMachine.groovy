@@ -9,6 +9,9 @@ class VendingMachine {
     }
 
     def refund() {
-        total
+        def refund = total
+        total = 0
+        refund
     }
+
 }
