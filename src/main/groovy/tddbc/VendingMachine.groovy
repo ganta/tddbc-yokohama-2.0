@@ -24,11 +24,10 @@ class VendingMachine {
      * @return 釣り銭
      */
     void insert(Integer money) {
-        if (ALLOW_MONEY_LIST.contains(money)) {
-            insertedMoneyList << money
-            return
+        if (!ALLOW_MONEY_LIST.contains(money)) {
+            throw new UnusableMoneyUsedException(insertedMoney: money)
         }
-        throw new UnusableMoneyUsedException(insertedMoney: money)
+        insertedMoneyList << money
     }
 
     /**
